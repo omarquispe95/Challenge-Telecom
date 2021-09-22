@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivImage"
             android:layout_width="@dimen/image_size"
-            android:layout_height="128dp"
+            android:layout_height="@dimen/image_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toEndOf="@id/ivImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItemSmall" />
 
         <TextView
             android:id="@+id/tvStatusSpecies"
@@ -38,7 +38,7 @@
             app:layout_constraintStart_toEndOf="@id/ivImage"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItemSmall" />
 
         <TextView
             android:id="@+id/tvLastLocation"
@@ -49,7 +49,7 @@
             app:layout_constraintStart_toEndOf="@id/ivImage"
             app:layout_constraintTop_toBottomOf="@id/tvStatusSpecies"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItemSmall" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

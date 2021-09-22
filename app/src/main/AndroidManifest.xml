@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChallengeTelecom">
         <activity
-            android:name=".ItemDetailHostActivity"
+            android:name=".ui.main.ItemDetailHostActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

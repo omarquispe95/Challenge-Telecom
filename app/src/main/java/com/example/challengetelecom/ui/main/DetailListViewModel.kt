@@ -14,30 +14,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ItemListViewModel @Inject constructor(
+class DetailListViewModel @Inject constructor(
     application: Application,
     private val repository: MainRepository,
 ) : AndroidViewModel(application) {
 
-    private var page = 1
-    private val _charactersLiveData = MutableLiveData<Resource<List<Character>>>()
-    fun getCharactersLiveData(): LiveData<Resource<List<Character>>> = _charactersLiveData
+    private val _characterLiveData = MutableLiveData<Resource<Character>>()
+    fun getCharacterLiveData(): LiveData<Resource<Character>> = _characterLiveData
 
-    init {
-        getCharacters(true)
-    }
+    fun getCharacters(id: Int) {
 
-    fun getCharacters(isReset: Boolean = false) {
-        if (isReset)
-            page = 1
-
-        _charactersLiveData.postValue(Resource.Loading())
+        _characterLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
-            repository.getCharacters(page).collect {
-                if (it is Resource.Success)
-                    page++
-
-                _charactersLiveData.postValue(it)
+            repository.getCharacter(id).collect {
+                _characterLiveData.postValue(it)
             }
         }
     }

@@ -1,24 +1,20 @@
 package com.example.challengetelecom.ui.adapter
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.challengetelecom.data.model.Character
 import com.example.challengetelecom.databinding.ItemListContentBinding
 
-class SimpleItemRecyclerViewAdapter(
+class CharacterAdapter(
     private val characters: ArrayList<Character>,
-    private val onClickListener: View.OnClickListener,
-    private val onContextClickListener: View.OnContextClickListener
+    private val onClickListener: View.OnClickListener
 ) :
-    RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -32,15 +28,13 @@ class SimpleItemRecyclerViewAdapter(
             Glide.with(context).load(item.image).thumbnail(0.5f)
                 .placeholder(android.R.color.darker_gray).into(this)
         }
-        holder.idView.text = item.name
-        holder.contentView.text = item.origin.name
+        holder.tvName.text = item.name
+        holder.tvStatusSpecies.text = String.format("%s - %s", item.status, item.species)
+        holder.tvLastLocation.text = item.location.name
 
         with(holder.itemView) {
             tag = item
             setOnClickListener(onClickListener)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setOnContextClickListener(onContextClickListener)
-            }
         }
     }
 
@@ -49,8 +43,9 @@ class SimpleItemRecyclerViewAdapter(
     inner class ViewHolder(binding: ItemListContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val imageView: ImageView = binding.ivImage
-        val idView: TextView = binding.tvName
-        val contentView: TextView = binding.content
+        val tvName: TextView = binding.tvName
+        val tvStatusSpecies: TextView = binding.tvStatusSpecies
+        val tvLastLocation: TextView = binding.tvLastLocation
     }
 
     fun addPage(newItems: List<Character>) {

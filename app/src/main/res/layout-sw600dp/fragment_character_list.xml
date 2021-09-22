@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_list"
+        android:id="@+id/rvCharacter"
         android:name="com.example.challengetelecom.ItemListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -17,8 +17,20 @@
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.challengetelecom.ItemDetailHostActivity"
+        tools:context="com.example.challengetelecom.ui.main.ItemDetailHostActivity"
         tools:listitem="@layout/item_list_content" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rvCharacter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/rvCharacter" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -28,7 +40,7 @@
         app:layout_constraintGuide_begin="@dimen/item_width" />
 
     <fragment
-        android:id="@+id/item_detail_nav_container"
+        android:id="@+id/itemDetailNavContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"

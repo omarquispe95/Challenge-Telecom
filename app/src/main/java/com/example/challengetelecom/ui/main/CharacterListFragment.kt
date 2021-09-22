@@ -1,45 +1,38 @@
-package com.example.challengetelecom
+package com.example.challengetelecom.ui.main
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.challengetelecom.R
 import com.example.challengetelecom.data.model.Character
 import com.example.challengetelecom.data.network.Resource
-import com.example.challengetelecom.databinding.FragmentItemListBinding
-import com.example.challengetelecom.ui.adapter.SimpleItemRecyclerViewAdapter
-import com.example.challengetelecom.ui.main.ItemListViewModel
+import com.example.challengetelecom.data.repository.MainRepository
+import com.example.challengetelecom.databinding.FragmentCharacterListBinding
+import com.example.challengetelecom.ui.adapter.CharacterAdapter
 import com.example.challengetelecom.util.Constants
+import com.example.challengetelecom.util.isFirstItem
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-
-/**
- * A Fragment representing a list of Pings. This fragment
- * has different presentations for handset and larger screen devices. On
- * handsets, the fragment presents a list of items, which when touched,
- * lead to a {@link ItemDetailFragment} representing
- * item details. On larger screens, the Navigation controller presents the list of items and
- * item details side-by-side using two vertical panes.
- */
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ItemListFragment : Fragment() {
+class CharacterListFragment : Fragment() {
 
-    private var _binding: FragmentItemListBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
+    @Inject
+    lateinit var repository: MainRepository
     private val viewModel by viewModels<ItemListViewModel>()
 
-    private var charactersAdapter: SimpleItemRecyclerViewAdapter? = null
+    private var charactersAdapter: CharacterAdapter? = null
     private var isLastPage = false
     private var isScrolling = false
     private var isLoading = false
@@ -75,30 +68,20 @@ class ItemListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentItemListBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView: RecyclerView = binding.itemList
-
-        // Leaving this not using view binding as it relies on if the view is visible the current
-        // layout configuration (layout, layout-sw600dp)
-        val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
-
-        /** Click Listener to trigger navigation based on if you have
-         * a single pane layout or two pane layout
-         */
+        val itemDetailFragmentContainer: View? = view.findViewById(R.id.itemDetailNavContainer)
         val onClickListener = View.OnClickListener { itemView ->
             val item = itemView.tag as Character
             val bundle = Bundle()
             bundle.putSerializable(
-                ItemDetailFragment.ARG_ITEM,
+                CharacterDetailFragment.ARG_ITEM,
                 item
             )
             if (itemDetailFragmentContainer != null) {
@@ -109,38 +92,38 @@ class ItemListFragment : Fragment() {
             }
         }
 
-        /**
-         * Context click listener to handle Right click events
-         * from mice and trackpad input to provide a more native
-         * experience on larger screen devices
-         */
-        val onContextClickListener = View.OnContextClickListener { v ->
-            val item = v.tag as Character
-            Toast.makeText(
-                v.context,
-                "Context click of item " + item.id,
-                Toast.LENGTH_LONG
-            ).show()
-            true
-        }
-        setupRecyclerView(recyclerView, onClickListener, onContextClickListener)
-        //viewModel.getCharacters()
+        setupRecyclerView(binding.rvCharacter, onClickListener)
         viewModel.getCharactersLiveData().observe(viewLifecycleOwner) { observeResults(it) }
     }
 
     private fun setupRecyclerView(
         recyclerView: RecyclerView,
-        onClickListener: View.OnClickListener,
-        onContextClickListener: View.OnContextClickListener
+        onClickListener: View.OnClickListener
     ) {
-        charactersAdapter = SimpleItemRecyclerViewAdapter(
-            arrayListOf(),
-            onClickListener,
-            onContextClickListener
-        )
+        if (charactersAdapter == null)
+            charactersAdapter = CharacterAdapter(
+                arrayListOf(),
+                onClickListener
+            )
         recyclerView.apply {
+            val margin8dp = resources.getDimensionPixelOffset(R.dimen.container_margin)
             adapter = charactersAdapter
-            addOnScrollListener(this@ItemListFragment.scrollListener)
+            addOnScrollListener(this@CharacterListFragment.scrollListener)
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State,
+                ) {
+                    with(outRect) {
+                        left = margin8dp
+                        right = margin8dp
+                        top = if (parent.isFirstItem(view)) margin8dp else 0
+                        bottom = margin8dp
+                    }
+                }
+            })
         }
     }
 

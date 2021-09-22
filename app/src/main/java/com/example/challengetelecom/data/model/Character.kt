@@ -5,9 +5,10 @@ import java.io.Serializable
 data class Character (
     var id: Int,
     var name: String,
-    var status: String, // TODO change
+    var status: String,
+    var species: String,
     var type: String,
-    var gender: String, // TODO change
+    var gender: String,
     var origin: Info,
     var location: Info,
     var image: String,

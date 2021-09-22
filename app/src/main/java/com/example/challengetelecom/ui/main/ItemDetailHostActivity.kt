@@ -1,4 +1,4 @@
-package com.example.challengetelecom
+package com.example.challengetelecom.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.challengetelecom.databinding.ActivityItemDetailBinding
+import com.example.challengetelecom.R
+import com.example.challengetelecom.databinding.ActivityCharacterDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +19,7 @@ class ItemDetailHostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        val binding = ActivityCharacterDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment =

@@ -14,17 +14,25 @@ class MainRepository @Inject constructor(
     private val appService: AppService
 ) {
 
-    private var page = 1
-
-    suspend fun getSearchPost(): Flow<Resource<List<Character>>> {
+    suspend fun getCharacters(page: Int): Flow<Resource<List<Character>>> {
         return flow {
             try {
                 val response = appService.getCharacters(page)
                 val characters = response.results
-                page++
                 emit(Resource.Success(characters))
             } catch (e: Exception) {
                 emit(Resource.Error<List<Character>>(ApiErrorParser(application).parseError(e)))
+            }
+        }
+    }
+
+    suspend fun getCharacter(id: Int): Flow<Resource<Character>> {
+        return flow {
+            try {
+                val response = appService.getCharacter(id)
+                emit(Resource.Success(response))
+            } catch (e: Exception) {
+                emit(Resource.Error<Character>(ApiErrorParser(application).parseError(e)))
             }
         }
     }
