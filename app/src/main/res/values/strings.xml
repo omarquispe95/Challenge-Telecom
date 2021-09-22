@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Challenge Telecom</string>
+    <string name="title_item_detail">Item Detail</string>
+
+    <!--  Error  -->
+    <string name="error_generic">Ocurrió un error</string>
+    <string name="error_server">Error de servidor</string>
+    <string name="error_unknown">Error desconocido</string>
+    <string name="error_time_out">Se superó el tiempo de respuesta</string>
+    <string name="error_no_connection_internet">No hay conexión a internet</string>
+    <string name="error_account_exists">El email se encuentra registrado</string>
+    <string name="error_account_not_found">La cuenta no fue encontrada</string>
+    <string name="error_wrong_credentials">La contraseña que ingresaste es incorrecta</string>
+</resources>
