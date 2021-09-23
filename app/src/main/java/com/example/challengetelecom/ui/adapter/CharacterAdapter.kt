@@ -29,8 +29,6 @@ class CharacterAdapter(
                 .placeholder(android.R.color.darker_gray).into(this)
         }
         holder.tvName.text = item.name
-        holder.tvStatusSpecies.text = String.format("%s - %s", item.status, item.species)
-        holder.tvLastLocation.text = item.location.name
 
         with(holder.itemView) {
             tag = item
@@ -44,8 +42,13 @@ class CharacterAdapter(
         RecyclerView.ViewHolder(binding.root) {
         val imageView: ImageView = binding.ivImage
         val tvName: TextView = binding.tvName
-        val tvStatusSpecies: TextView = binding.tvStatusSpecies
-        val tvLastLocation: TextView = binding.tvLastLocation
+    }
+
+    fun getList() = characters
+
+    fun submitList(newItems: List<Character>) {
+        characters.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     fun addPage(newItems: List<Character>) {

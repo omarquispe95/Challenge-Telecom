@@ -21,7 +21,7 @@ class CharacterDetailFragment : Fragment() {
 
         arguments?.let {
             if (it.containsKey(ARG_ITEM)) {
-                item = it.getSerializable(ARG_ITEM) as Character
+                item = it.getParcelable(ARG_ITEM) as Character?
             }
         }
     }
@@ -41,6 +41,9 @@ class CharacterDetailFragment : Fragment() {
                 Glide.with(requireContext()).load(character.image).thumbnail(0.5f)
                     .placeholder(android.R.color.darker_gray).into(ivImage)
                 tvName.text = character.name
+                tvStatusSpecies.text = String.format("%s - %s", character.status, character.species)
+                tvLastLocation.text = character.location?.name
+                tvFirstLocation.text = character.origin?.name
             }
         }
 

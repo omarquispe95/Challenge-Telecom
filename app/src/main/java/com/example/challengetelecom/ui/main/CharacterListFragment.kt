@@ -80,7 +80,7 @@ class CharacterListFragment : Fragment() {
         val onClickListener = View.OnClickListener { itemView ->
             val item = itemView.tag as Character
             val bundle = Bundle()
-            bundle.putSerializable(
+            bundle.putParcelable(
                 CharacterDetailFragment.ARG_ITEM,
                 item
             )
@@ -145,12 +145,24 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun showProgress(show: Boolean) {
-        binding.progressBar?.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
         isLoading = show
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(Constants.ITEMS, charactersAdapter?.getList())
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getParcelableArrayList<Character>(Constants.ITEMS)?.let {
+            charactersAdapter?.submitList(it.toList())
+        }
     }
 }
