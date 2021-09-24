@@ -12,7 +12,7 @@ import com.example.challengetelecom.databinding.ItemListContentBinding
 
 class CharacterAdapter(
     private val characters: ArrayList<Character>,
-    private val onClickListener: View.OnClickListener
+    private val onClick:(View, Character) -> Unit
 ) :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
@@ -24,15 +24,11 @@ class CharacterAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = characters[position]
-        holder.imageView.apply {
-            Glide.with(context).load(item.image).thumbnail(0.5f)
-                .placeholder(android.R.color.darker_gray).into(this)
-        }
-        holder.tvName.text = item.name
-
-        with(holder.itemView) {
-            tag = item
-            setOnClickListener(onClickListener)
+        with(holder) {
+            Glide.with(imageView.context).load(item.image).thumbnail(0.5f)
+                .placeholder(android.R.color.darker_gray).into(imageView)
+            tvName.text = item.name
+            itemView.setOnClickListener { onClick(itemView, item) }
         }
     }
 

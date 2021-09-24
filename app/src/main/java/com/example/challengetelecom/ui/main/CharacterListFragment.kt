@@ -77,12 +77,11 @@ class CharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.itemDetailNavContainer)
-        val onClickListener = View.OnClickListener { itemView ->
-            val item = itemView.tag as Character
+        setupRecyclerView(binding.rvCharacter) { itemView, character ->
             val bundle = Bundle()
             bundle.putParcelable(
                 CharacterDetailFragment.ARG_ITEM,
-                item
+                character
             )
             if (itemDetailFragmentContainer != null) {
                 itemDetailFragmentContainer.findNavController()
@@ -91,19 +90,17 @@ class CharacterListFragment : Fragment() {
                 itemView.findNavController().navigate(R.id.show_item_detail, bundle)
             }
         }
-
-        setupRecyclerView(binding.rvCharacter, onClickListener)
         viewModel.getCharactersLiveData().observe(viewLifecycleOwner) { observeResults(it) }
     }
 
     private fun setupRecyclerView(
         recyclerView: RecyclerView,
-        onClickListener: View.OnClickListener
+        onClick:(View, Character) -> Unit
     ) {
         if (charactersAdapter == null)
             charactersAdapter = CharacterAdapter(
                 arrayListOf(),
-                onClickListener
+                onClick
             )
         recyclerView.apply {
             val margin8dp = resources.getDimensionPixelOffset(R.dimen.container_margin)

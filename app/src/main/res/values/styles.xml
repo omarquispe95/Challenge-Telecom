@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="textItem">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_black</item>
+    </style>
+    <style name="textSubtitle">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+    <style name="textData">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+</resources>

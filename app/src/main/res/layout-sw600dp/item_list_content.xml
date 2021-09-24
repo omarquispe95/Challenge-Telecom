@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItemSmall" />
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            style="@style/textItem"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

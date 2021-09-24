@@ -3,7 +3,7 @@
     <string name="title_item_list">Lista de Personajes</string>
     <string name="title_item_detail">Detalle de Personaje</string>
 
-    <!--  Error  -->
+    <!-- Error -->
     <string name="error_generic">Ocurrió un error</string>
     <string name="error_server">Error de servidor</string>
     <string name="error_unknown">Error desconocido</string>
@@ -12,4 +12,8 @@
     <string name="error_account_exists">El email se encuentra registrado</string>
     <string name="error_account_not_found">La cuenta no fue encontrada</string>
     <string name="error_wrong_credentials">La contraseña que ingresaste es incorrecta</string>
+
+    <!-- Detail -->
+    <string name="last_known_location">Última ubicación conocida:</string>
+    <string name="first_seen_in">Visto por primera vez en:</string>
 </resources>
