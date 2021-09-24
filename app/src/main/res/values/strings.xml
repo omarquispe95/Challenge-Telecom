@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Challenge Telecom</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="title_item_list">Lista de Personajes</string>
+    <string name="title_item_detail">Detalle de Personaje</string>
 
     <!--  Error  -->
     <string name="error_generic">Ocurrió un error</string>

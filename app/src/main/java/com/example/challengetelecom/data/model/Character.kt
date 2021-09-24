@@ -4,18 +4,18 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Character (
-    var id: Int,
-    var name: String?,
-    var status: String?,
-    var species: String?,
-    var type: String?,
-    var gender: String?,
-    var origin: Info?,
-    var location: Info?,
-    var image: String?,
-    var episode: List<String>?,
-    var url: String?,
-    var created: String?
+    val id: Int,
+    val name: String?,
+    val status: String?,
+    val species: String?,
+    val type: String?,
+    val gender: String?,
+    val origin: Info?,
+    val location: Info?,
+    val image: String?,
+    val episode: List<String>?,
+    val url: String?,
+    val created: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -50,6 +50,21 @@ data class Character (
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Character
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id
     }
 
     companion object CREATOR : Parcelable.Creator<Character> {

@@ -52,8 +52,12 @@ class CharacterAdapter(
     }
 
     fun addPage(newItems: List<Character>) {
-        val size = characters.size
-        characters.addAll(newItems)
-        notifyItemRangeInserted(size, characters.size)
+        if (newItems.isNotEmpty()) {
+            if (!characters.contains(newItems.first())) {
+                val size = characters.size
+                characters.addAll(newItems)
+                notifyItemRangeInserted(size, characters.size)
+            }
+        }
     }
 }

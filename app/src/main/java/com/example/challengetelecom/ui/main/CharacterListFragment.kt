@@ -156,7 +156,9 @@ class CharacterListFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(Constants.ITEMS, charactersAdapter?.getList())
+        charactersAdapter?.getList()?.let {
+            outState.putParcelableArrayList(Constants.ITEMS, it)
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
